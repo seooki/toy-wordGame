@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Word } from "./compenents/Word";
 import { Typing } from "./compenents/Typing";
 import { Level } from "./compenents/Level";
+import { Counter } from "./compenents/Counter";
 
 function App() {
   const [word, setWord] = useState();
@@ -20,6 +21,7 @@ function App() {
   return (
     <>
       <Level getLevel={getLevel}></Level>
+      <Counter></Counter>
       <div>
         <button>시작/정지</button>
       </div>
