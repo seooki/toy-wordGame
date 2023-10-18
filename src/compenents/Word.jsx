@@ -1,21 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import getData from "../services/getData";
 
 export const Word = (props) => {
   const [word, setWord] = useState();
+  const [btnState, setBtnState] = useState();
+  const isMounted = useRef(false);
+  useEffect(() => {
+    setBtnState(props.toggle);
+  }, [props]);
 
   useEffect(() => {
-    const data = getData();
-    setWord(data);
-  }, []);
-
-  useEffect(() => {
-    props.returnWord(word);
+    if (isMounted == true) {
+      console.log(word);
+    }
   }, [word]);
 
   return (
     <div>
-      <span></span>
+      <span>단어: {word}</span>
     </div>
   );
 };

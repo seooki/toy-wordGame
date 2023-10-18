@@ -1,22 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export const Counter = (props) => {
   const [count, setCount] = useState(0);
-  const [start, setStart] = useState(null);
+  const [btnState, setBtnState] = useState();
+  const isMounted = useRef(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prev) => prev + 1);
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [start]);
+    isMounted.current = props.toggle;
+    setBtnState(props.toggle);
+  }, [props.toggle]);
 
   useEffect(() => {
-    console.log(count);
-  }, [count]);
+    if (isMounted.current == true) {
+      const interval = setInterval(() => {
+        setCount((prev) => prev + 1);
+      }, 1000);
 
-  return <p>counter : {count}</p>;
+      return () => {
+        clearInterval(interval);
+        setCount(0);
+      };
+    }
+  }, [btnState]);
+
+  return <p>counter : {count}초</p>;
 };
