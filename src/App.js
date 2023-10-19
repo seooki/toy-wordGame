@@ -7,53 +7,39 @@ import { Counter } from "./compenents/Counter";
 import getData from "./services/getData";
 
 function App() {
-  const [word, setWord] = useState();
-  const [level, setLevel] = useState();
-  const [levelLength, setLevelLength] = useState();
+  const [wordArr, setWordArr] = useState();
   const [toggle, setToggle] = useState(false);
-  const [typingValue, setTypingValue] = useState();
-  const isMounted = useRef(false);
+  const [word, setWord] = useState();
 
-  const getLevel = (param) => {
-    const levelObj = param;
-    setLevel(levelObj);
-    isMounted.current = true;
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      setWordArr(await getData());
+    };
+    fetchData();
+  }, []);
 
-  const returnWord = (param) => {
-    setWord(param);
-  };
-
-  const createBtnState = () => {
+  const toggleBtn = async () => {
     setToggle(!toggle);
+    console.log(toggle);
+    if (!toggle) {
+      const word = await getRandomWord();
+      setWord(word);
+    } else {
+      setWord("");
+    }
   };
 
-  useEffect(() => {
-    console.log(word);
-  }, [word]);
-
-  useEffect(() => {
-    if (isMounted.current == true) {
-      async function fetchData() {
-        const data = await getData();
-        setWord(data);
-      }
-      fetchData();
-      isMounted.current = false;
-    }
-  }, [level]);
-
-  const getTypingValue = (param) => {
-    const paramValue = param;
-    setTypingValue(paramValue);
+  const getRandomWord = () => {
+    const arrIndex = Math.floor(Math.random() * 100);
+    return wordArr[arrIndex];
   };
 
   return (
     <>
-      <button onClick={createBtnState}>시작/정지</button>
-      <Word returnWord={returnWord} toggle={toggle}></Word>
+      <button onClick={toggleBtn}>시작/정지</button>
+      <Word word={word}></Word>
       <Counter toggle={toggle}></Counter>
-      <Typing getTypingValue={getTypingValue} word={word}></Typing>
+      <Typing word={word}></Typing>
     </>
   );
 }

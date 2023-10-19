@@ -8,13 +8,9 @@ export const Word = (props) => {
 
   useEffect(() => {
     setBtnState(props.toggle);
+    setWord(props.word);
+    isMounted.current = true;
   }, [props]);
-
-  useEffect(() => {
-    if (isMounted == true) {
-      console.log(word);
-    }
-  }, [word]);
 
   return (
     <div>

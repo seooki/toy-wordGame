@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 export const Typing = (props) => {
   const [inputValue, setInputValue] = useState();
   const [submitValue, setSubmitValue] = useState();
+  const [sucessWord, setSucessWord] = useState();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -23,14 +24,17 @@ export const Typing = (props) => {
   }, [submitValue]);
 
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        onChange={onChangeValue}
-        type="text"
-        placeholder="단어 입력"
-        value={inputValue || ""}
-      ></input>
-      <input onClick={onSubmit} type="button" value={"ENTER"}></input>
-    </form>
+    <>
+      <form onSubmit={onSubmit}>
+        <input
+          onChange={onChangeValue}
+          type="text"
+          placeholder="단어 입력"
+          value={inputValue || ""}
+        ></input>
+        <input onClick={onSubmit} type="button" value={"ENTER"}></input>
+      </form>
+      <p>맞춘개수: {sucessWord}</p>
+    </>
   );
 };

@@ -2,16 +2,15 @@ import { useEffect, useState, useRef } from "react";
 
 export const Counter = (props) => {
   const [count, setCount] = useState(0);
-  const [btnState, setBtnState] = useState();
-  const isMounted = useRef(false);
+  const [mount, setMount] = useState(false);
 
   useEffect(() => {
-    isMounted.current = props.toggle;
-    setBtnState(props.toggle);
-  }, [props.toggle]);
+    const boolean = props.toggle;
+    setMount(boolean);
+  }, [props]);
 
   useEffect(() => {
-    if (isMounted.current == true) {
+    if (mount == true) {
       const interval = setInterval(() => {
         setCount((prev) => prev + 1);
       }, 1000);
@@ -21,7 +20,7 @@ export const Counter = (props) => {
         setCount(0);
       };
     }
-  }, [btnState]);
+  }, [mount]);
 
   return <p>counter : {count}초</p>;
 };
