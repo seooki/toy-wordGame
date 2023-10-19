@@ -1,20 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const Typing = () => {
-  const [checkWord, setCheckWord] = useState();
+export const Typing = (props) => {
+  const [inputValue, setInputValue] = useState();
+  const [submitValue, setSubmitValue] = useState();
 
-  const onChangeWord = (e) => {
-    setCheckWord(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (inputValue != "") {
+      setSubmitValue(inputValue);
+      setInputValue("");
+    } else {
+      alert("단어를 입력해주세요");
+    }
   };
 
+  const onChangeValue = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  useEffect(() => {
+    console.log(submitValue);
+  }, [submitValue]);
+
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <input
+        onChange={onChangeValue}
         type="text"
         placeholder="단어 입력"
-        onChange={onChangeWord}
+        value={inputValue || ""}
       ></input>
-      <input type="button" value={"ENTER"}></input>
+      <input onClick={onSubmit} type="button" value={"ENTER"}></input>
     </form>
   );
 };

@@ -1,22 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
+import { styled } from "styled-components";
 
 export const Level = (props) => {
-  const [selectLevel, setSelectLevel] = useState({
-    length: "",
-  });
+  const [selectLevel, setSelectLevel] = useState();
+  const isMounted = useRef(false);
 
   useEffect(() => {
-    props.getLevel(selectLevel);
+    if (isMounted.current == true) {
+      props.getLevel(selectLevel);
+    }
+    isMounted.current = false;
   }, [selectLevel]);
 
   const onChangeSelectLevel = (e) => {
-    setSelectLevel(e.target.innerHTML);
     if (e.target.innerHTML == "하") {
-      setSelectLevel({ length: 5 });
+      isMounted.current = true;
+      setSelectLevel(5);
     } else if (e.target.innerHTML == "중") {
-      setSelectLevel({ length: 10 });
+      isMounted.current = true;
+      setSelectLevel(10);
     } else {
-      setSelectLevel({ length: 15 });
+      isMounted.current = true;
+      setSelectLevel(15);
     }
   };
 

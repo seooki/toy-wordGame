@@ -5,6 +5,7 @@ export const Word = (props) => {
   const [word, setWord] = useState();
   const [btnState, setBtnState] = useState();
   const isMounted = useRef(false);
+
   useEffect(() => {
     setBtnState(props.toggle);
   }, [props]);

@@ -29,15 +29,19 @@ function App() {
   };
 
   useEffect(() => {
-    if (isMounted == true) {
+    console.log(word);
+  }, [word]);
+
+  useEffect(() => {
+    if (isMounted.current == true) {
       async function fetchData() {
-        const data = await getData(level.length, 10);
+        const data = await getData();
         setWord(data);
-        isMounted.current = false;
       }
       fetchData();
+      isMounted.current = false;
     }
-  }, []);
+  }, [level]);
 
   const getTypingValue = (param) => {
     const paramValue = param;
@@ -46,13 +50,10 @@ function App() {
 
   return (
     <>
-      <Level getLevel={getLevel}></Level>
-      <Counter toggle={toggle}></Counter>
-      <div>
-        <button onClick={createBtnState}>시작/정지</button>
-      </div>
-      <Typing getTypingValue={getTypingValue}></Typing>
+      <button onClick={createBtnState}>시작/정지</button>
       <Word returnWord={returnWord} toggle={toggle}></Word>
+      <Counter toggle={toggle}></Counter>
+      <Typing getTypingValue={getTypingValue} word={word}></Typing>
     </>
   );
 }
