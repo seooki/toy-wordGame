@@ -1,16 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Typing = (props) => {
   const [inputValue, setInputValue] = useState();
   const [submitValue, setSubmitValue] = useState();
-  const [sucessWord, setSucessWord] = useState();
+  const [sucessWord, setSucessWord] = useState(0);
+  const isMounted = useRef(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (inputValue != "") {
       setSubmitValue(inputValue);
       setInputValue("");
+      isMounted.current = true;
     } else {
+      isMounted.current = false;
       alert("단어를 입력해주세요");
     }
   };
@@ -20,7 +23,10 @@ export const Typing = (props) => {
   };
 
   useEffect(() => {
-    console.log(submitValue);
+    if (isMounted.current == true && submitValue == props.word) {
+      setSucessWord(sucessWord + 1);
+      props.getRandomWord();
+    }
   }, [submitValue]);
 
   return (

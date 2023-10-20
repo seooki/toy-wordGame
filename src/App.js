@@ -22,8 +22,7 @@ function App() {
     setToggle(!toggle);
     console.log(toggle);
     if (!toggle) {
-      const word = await getRandomWord();
-      setWord(word);
+      getRandomWord();
     } else {
       setWord("");
     }
@@ -31,7 +30,7 @@ function App() {
 
   const getRandomWord = () => {
     const arrIndex = Math.floor(Math.random() * 100);
-    return wordArr[arrIndex];
+    setWord(wordArr[arrIndex]);
   };
 
   return (
@@ -39,7 +38,7 @@ function App() {
       <button onClick={toggleBtn}>시작/정지</button>
       <Word word={word}></Word>
       <Counter toggle={toggle}></Counter>
-      <Typing word={word}></Typing>
+      <Typing word={word} getRandomWord={getRandomWord}></Typing>
     </>
   );
 }

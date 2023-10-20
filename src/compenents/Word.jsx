@@ -14,7 +14,7 @@ export const Word = (props) => {
 
   return (
     <div>
-      <span>단어: {word}</span>
+      <span>{word}</span>
     </div>
   );
 };
