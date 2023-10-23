@@ -7,20 +7,28 @@ export const Counter = (props) => {
   useEffect(() => {
     const boolean = props.toggle;
     setMount(boolean);
+    if (props.reset == true) {
+      setCount(0);
+    }
   }, [props]);
+
+  let interval;
 
   useEffect(() => {
     if (mount == true) {
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setCount((prev) => prev + 1);
       }, 1000);
-
-      return () => {
-        clearInterval(interval);
-        setCount(0);
-      };
     }
   }, [mount]);
+
+  useEffect(() => {
+    if (count > 5) {
+      clearInterval(interval);
+      setCount(0);
+      alert("탈락!");
+    }
+  }, [count]);
 
   return <p>counter : {count}초</p>;
 };

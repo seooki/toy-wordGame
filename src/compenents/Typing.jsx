@@ -16,6 +16,7 @@ export const Typing = (props) => {
       isMounted.current = false;
       alert("단어를 입력해주세요");
     }
+    props.clearCounter();
   };
 
   const onChangeValue = (e) => {

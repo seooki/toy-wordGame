@@ -10,6 +10,7 @@ function App() {
   const [wordArr, setWordArr] = useState();
   const [toggle, setToggle] = useState(false);
   const [word, setWord] = useState();
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,6 +29,10 @@ function App() {
     }
   };
 
+  const clearCounter = () => {
+    setReset(true);
+  };
+
   const getRandomWord = () => {
     const arrIndex = Math.floor(Math.random() * 100);
     setWord(wordArr[arrIndex]);
@@ -37,8 +42,12 @@ function App() {
     <>
       <button onClick={toggleBtn}>시작/정지</button>
       <Word word={word}></Word>
-      <Counter toggle={toggle}></Counter>
-      <Typing word={word} getRandomWord={getRandomWord}></Typing>
+      <Counter toggle={toggle} reset={reset}></Counter>
+      <Typing
+        word={word}
+        getRandomWord={getRandomWord}
+        clearCounter={clearCounter}
+      ></Typing>
     </>
   );
 }
