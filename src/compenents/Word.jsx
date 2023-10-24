@@ -14,20 +14,20 @@ const Div = styled.div`
 `;
 
 const EmptyWord = styled.span`
-  font-size: 16px;
+  font-size: 46px;
+  font-weight: bold;
 `;
 
 export const Word = (props) => {
   const [word, setWord] = useState();
   const [btnState, setBtnState] = useState();
   const isMounted = useRef(false);
-  const emptyWord = "시작 버튼이 활성화 되면 버튼을 눌러주세요.";
+  const emptyWord = "준비";
 
   useEffect(() => {
     setBtnState(props.toggle);
     setWord(props.word);
     isMounted.current = true;
-    console.log(props.checkedWordArr);
   }, [props]);
 
   return (

@@ -19,10 +19,15 @@ const Button = styled.input`
   display: none;
 `;
 
+const ResetBtn = styled.button`
+  margin-top: 10px;
+`;
+
 export const Typing = (props) => {
   const [inputValue, setInputValue] = useState();
   const [submitValue, setSubmitValue] = useState();
   const [sucessWord, setSucessWord] = useState(0);
+  const [diffCount, setDiffCount] = useState(0);
   const isMounted = useRef(false);
 
   const onSubmit = (e) => {
@@ -34,6 +39,7 @@ export const Typing = (props) => {
     } else {
       isMounted.current = false;
       alert("단어를 입력해주세요");
+      props.componentsRerender(true);
     }
     props.clearCounter();
   };
@@ -48,8 +54,17 @@ export const Typing = (props) => {
       props.getRandomWord();
     } else if (isMounted.current == true && submitValue != props.word) {
       alert("틀렸습니다.");
+      props.getRandomWord();
+      setDiffCount((prev) => prev + 1);
+      props.getFaild(true);
+      props.componentsRerender(true);
     }
   }, [submitValue]);
+
+  const resetSucessWord = () => {
+    setSucessWord(0);
+    setDiffCount(0);
+  };
 
   return (
     <TypingBoard>
@@ -62,7 +77,13 @@ export const Typing = (props) => {
         ></Input>
         <Button onClick={onSubmit} type="button" value={"ENTER"}></Button>
       </form>
-      <p>맞춘개수: {sucessWord}</p>
+      <p>
+        맞춘개수: {sucessWord}
+        <br />
+        틀린개수: {diffCount}
+        <br />
+        <ResetBtn onClick={resetSucessWord}>초기화</ResetBtn>
+      </p>
     </TypingBoard>
   );
 };
