@@ -23,6 +23,8 @@ javascript, react, axios, styled-componenets, react hooks, yarn
 
 # 구현 이미지
 
+<img src="./images/apiReady.png" width="400px">
+
 ![apiReady](./images/apiReady.png)
 ![ready](./images/ready.png)
 ![start](./images/start.png)
