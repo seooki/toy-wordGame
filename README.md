@@ -23,6 +23,11 @@ javascript, react, axios, styled-componenets, react hooks, yarn
 
 # 구현 이미지
 
-<img src="./images/apiReady.png" width="400px">
-<img src="./images/ready.png" width="400px">
-<img src="./images/start.png" width="400px">
+1. api 불러오기전 "단어를 불러오는 중입니다."라는 버튼을 표시하고 비활성화
+2. "준비" 라는 글자를 표시
+   <img src="./images/apiReady.png" width="400px">
+3. api를 불러오면"시작"이라는 버튼으로 변경 후 활성화
+4. "준비" 글자 삭제
+   <img src="./images/ready.png" width="400px">
+5. "시작" 버튼을 누르면 남은시간이 카운팅되고 위에 불러온 영어 낱말이 표시됨.
+   <img src="./images/start.png" width="400px">
